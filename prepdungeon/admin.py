@@ -14,3 +14,9 @@ class WaitlistAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'created_at')
     list_filter = ('name', 'email', 'created_at')
     search_fields = ('name', 'email', 'created_at')
+
+@admin.register(ContactUsEmail)
+class ContactUsEmailAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'email', 'subject', 'created_at')
+    list_filter = ('first_name', 'email', 'created_at')
+    search_fields = ('namfirst_namee', 'email', 'created_at')
