@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'prepdungeon',
 ]
 
-AUTH_USER_MODEL = 'prepdungeon.User'
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

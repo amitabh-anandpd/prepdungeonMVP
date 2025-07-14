@@ -17,8 +17,8 @@ import io
 from PyPDF2 import PdfReader
 import docx
 
-from .forms import IndexForm, LoginForm, SignupForm
-from .models import Question, User, CompletedDailyQuest, UserProfile, UserDailyQuest, Waitlist
+from .forms import IndexForm
+from .models import Question, Waitlist
 
 API_URL = "https://furygold.pythonanywhere.com/generate"
 
@@ -38,8 +38,6 @@ def extract_text_from_file(uploaded_file):
 
 
 def save_questions_from_csv(csv_text, test_type):
-    # csv_text is a string, e.g., response.text from requests or file.read().decode()
-
     reader = csv.DictReader(io.StringIO(csv_text))
     saved = []
     for row in reader:
@@ -91,7 +89,6 @@ def index(request):
                     timeout=60,
                 )
                 if response.status_code == 200:
-                    print(response.json()["response"])
                     raw_response = response.json()["response"]
                     if raw_response.startswith("```csv"):
                         raw_response = raw_response[6:]  # Remove first 6 chars: ```csv\n
@@ -118,82 +115,6 @@ def index(request):
         form = IndexForm()
     score = request.session.pop('score', None)
     return render(request, 'index.html', {'form': form, 'score': json.dumps(score, cls=DjangoJSONEncoder)})
-
-def auth(request):
-    if request.method == 'POST':
-        if "login" in request.POST:
-            login_form = LoginForm(request.POST)
-            if login_form.is_valid():
-                email = login_form.cleaned_data['email']
-                password = login_form.cleaned_data['password']
-                user = authenticate(request, username=email, password=password)
-                if user is not None:
-                    login(request, user)
-                    return redirect('/dashboard')
-                else:
-                    request.session['notification'] = "Invalid email or password"
-                    request.session['notification_type'] = "error"
-        elif "signup" in request.POST:
-            signup_form = SignupForm(request.POST)
-            if signup_form.is_valid():
-                user = signup_form.save(commit=False)
-                user.username = user.email
-                user.set_password(signup_form.cleaned_data['password'])
-                user.save()
-                login(request, user)
-                return redirect('/dashboard')
-    login_form = LoginForm()
-    signup_form = SignupForm()
-    return render(
-        request, 'auth.html', 
-        {
-            'signup_form': signup_form, 
-            'login_form': login_form,
-        })
-
-def dashboard(request):
-    if not request.user.is_authenticated:
-        return redirect('/')
-    user = request.user
-    daily_quests = UserDailyQuest.objects.filter(user=user, date_created=timezone.now().date())
-    completed_daily = CompletedDailyQuest.objects.filter(user=user, date_completed=timezone.now().date())
-    completed_ids = []
-    completed_ids = [i.quest.id for i in completed_daily]
-    level = user.profile.level
-    xp_max = 50 * level * (1 + level)
-    return render(request,'dashboard.html',
-        {
-            'user': user,
-            "daily_quests": daily_quests,
-            "completed_ids": completed_ids,
-            "xp_max": xp_max,
-            "next_level": level+1,
-        })
-
-def leaderboard(request):
-    return render(request, 'leaderboard.html')
-
-def onboarding(request):
-    return render(request, 'onboarding.html')
-
-def profile(request):
-    if not request.user.is_authenticated:
-        return redirect('/')
-    user = request.user
-    level = user.profile.level
-    xp_max = 50 * level * (1 + level)
-    return render(request,'profile.html',
-        {
-            'user': user,
-            "xp_max": xp_max,
-            "next_level": level+1,
-        })
-
-def studyGuide(request):
-    return render(request, 'study-guide.html')
-
-def testCenter(request):
-    return render(request, 'test-center.html')
 
 def testMCQ(request):
     if not request.session.get('question_ids'):
@@ -453,36 +374,6 @@ def clear_notifications(request):
     request.session.pop('notification', None)
     request.session.pop('notification_type', None)
     return JsonResponse({'status': 'cleared'})
-
-def dailyQuest(request):
-    return render(request, 'daily-quest.html')
-
-def complete_daily_quest(user, quest_id):
-    quest = UserDailyQuest.objects.get(id=quest_id)
-    today = timezone.now().date()
-
-    already_done = CompletedDailyQuest.objects.filter(user=user, quest=quest, date_completed=today).exists()
-    if already_done:
-        return {"success": False, "message": "Quest already completed today."}
-
-    CompletedDailyQuest.objects.create(user=user, quest=quest)
-
-    profile = user.profile
-    profile.xp += quest.xp_reward
-    profile.save()
-    profile.update_streak()
-
-    return {"success": True, "message": "Quest completed and rewards applied."}
-
-def logout_view(request):
-    if request.user.is_authenticated:
-        logout(request)
-        request.session["notification"] = "Logged out successfully!"
-        request.session["notification_type"] = "success"
-        return redirect("/auth")
-    request.session['notification'] = "Couldn't Log out!"
-    request.session['notification_type'] = "error"
-    return redirect("/profile")
 
 def join_waitlist(request):
     if request.method != "POST":

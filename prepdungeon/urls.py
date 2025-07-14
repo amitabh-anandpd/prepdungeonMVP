@@ -20,23 +20,13 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import index, auth, dashboard, leaderboard, onboarding, profile, studyGuide, testCenter, dailyQuest
+from .views import index
 from .views import clear_notifications, clear_question_ids, join_waitlist
 from .views import testMCQ, checkMCQ, testSpeed, checkSpeed, testConceptual, checkConceptual
-from .views import logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('auth/', auth, name='auth'),
-    path('logout/', logout_view, name='logout'),
-    path('dashboard/', dashboard, name='dashboard'),
-    path('leaderboard/', leaderboard, name='leaderboard'),
-    path('onboarding/', onboarding, name='onboarding'),
-    path('profile/', profile, name='profile'),
-    path('study-guide/', studyGuide, name='study-guide'),
-    path('test-center/', testCenter, name='test-center'),
-    path('daily-quest/', dailyQuest, name="daily-quest"),
     path('test-mcq/', testMCQ, name='test-mcq'),
     path('test-speed/', testSpeed, name='test-speed'),
     path('test-conceptual/', testConceptual, name='test-conceptual'),
@@ -46,9 +36,7 @@ urlpatterns = [
     path('submit-speed/', checkSpeed, name="checkSpeed"),
     path('submit-conceptual/', checkConceptual, name="checkConceptual"),
     path('join-waitlist/', join_waitlist, name="join_waitlist"),
-    path('api/', include('prepdungeon.apiurls')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
