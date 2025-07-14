@@ -391,6 +391,15 @@ def join_waitlist(request):
             return JsonResponse({"success": False, "message": "Missing fields"}, status=400)
         entry = Waitlist.objects.create(name=name, email=email)
         entry.set_score(score)
+        message = "Hi! You've been added to our waitlist. We'll get back to you soon.\nHere is you full analysis - "
+        message = message + json.dumps(score)
+        send_mail(
+            subject="Amitabh from PrepDungeon",
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=False,
+        )
         return JsonResponse({"success": True})
 
     except json.JSONDecodeError:
