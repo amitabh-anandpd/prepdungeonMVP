@@ -121,12 +121,14 @@ function updateUploadDisplay() {
         lucide.createIcons();
     }
 }
-continueBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default submit behavior
-    showSection('screening');
-    scrollToSection('screening');
-    showNotification('Great! Now choose your preferred test type.', 'success');
-});
+if (continueBtn) {
+    continueBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('screening');
+        scrollToSection('screening');
+        showNotification('Great! Now choose your preferred test type.', 'success');
+    });
+}
 function checkContinueButton() {
     if (!continueBtn) return;
     
@@ -142,15 +144,6 @@ function checkContinueButton() {
         continueBtn.style.opacity = '0.5';
         continueBtn.style.pointerEvents = 'none';
     }
-}
-
-// Continue to screening
-if (continueBtn) {
-    continueBtn.addEventListener('click', () => {
-        showSection('screening');
-        scrollToSection('screening');
-        showNotification('Great! Now choose your preferred test type.', 'success');
-    });
 }
 
 // Screening card selection
@@ -433,28 +426,31 @@ if (modalSignupForm) {
         
         // Simulate signup process
         const submitButton = modalSignupForm.querySelector('.signup-btn');
-        const originalText = submitButton.innerHTML;
+        if (submitButton) {
+            const originalText = submitButton.innerHTML;
         
-        submitButton.innerHTML = '<i data-lucide="loader-2" class="animate-spin"></i> Creating your analysis...';
-        submitButton.disabled = true;
+            submitButton.innerHTML = '<i data-lucide="loader-2" class="animate-spin"></i> Creating your analysis...';
+            submitButton.disabled = true;
+        }
         
         lucide.createIcons();
-        
-        setTimeout(() => {
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
-            lucide.createIcons();
-            
-            showNotification('Welcome to PrepDungeon! Check your email for your full analysis.', 'success');
-            
-            // Close modal and redirect
-            signupModal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            
+        if(submitButton){
             setTimeout(() => {
-                window.location.href = '/auth/';
-            }, 2000);
-        }, 3000);
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                lucide.createIcons();
+                
+                showNotification('Welcome to PrepDungeon! Check your email for your full analysis.', 'success');
+                
+                // Close modal and redirect
+                signupModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                
+                setTimeout(() => {
+                    window.location.href = '/auth/';
+                }, 2000);
+            }, 3000);
+        }
     });
 }
 // Modal functionality

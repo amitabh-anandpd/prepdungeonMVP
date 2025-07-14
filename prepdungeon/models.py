@@ -60,3 +60,20 @@ class Question(models.Model):
             "answer": self.answer,
             "level": self.level,
             }
+
+class ContactUsEmail(models.Model):
+    SUBJECT_CHOICES = [
+        ('general', 'General Inquiry'),
+        ('support', 'Support Request'),
+        ('feedback', 'Feedback'),
+        ('partnership', 'Partnership Opportunity'),
+        ('bug', 'Bug Report'),
+        ('feature', 'Feature Request'),
+    ]
+    email = models.EmailField(null=False)
+    subject = models.CharField(choices=SUBJECT_CHOICES, max_length=32, null=False)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    message = models.TextField()
+    created_at  = models.DateTimeField(auto_now_add=True)
+    

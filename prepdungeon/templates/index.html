@@ -25,10 +25,11 @@
                     <span class="nav-title">PrepDungeon</span>
                 </div>
                 <div class="nav-menu">
-                    <a href="#features" class="nav-link">Superpowers</a>
+                    <a href="{% url 'index' %}" class="nav-link">Home</a>
                     <a href="{% url 'features' %}" class="nav-link">Features</a>
-                    <a href="{% url 'about' %}" class="nav-link">About</a>
+                    <a href="{% url 'about' %}" class="nav-link active">About</a>
                     <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                    <a href="{% url 'faq' %}" class="nav-link">FAQ</a>
                     <a class="nav-cta-btn" onclick="showNotification('Coming soon!')">Login</a>
                 </div>
                 <div class="mobile-menu-btn">
@@ -439,7 +440,7 @@
                 <div class="footer-bottom">
                     <div class="footer-bottom-content">
                         <p class="footer-copyright">
-                            © 2024 PrepDungeon. All rights reserved.
+                            © 2025 PrepDungeon. All rights reserved.
                         </p>
                         <div class="footer-bottom-links">
                             <a href="#" class="footer-bottom-link">Status</a>

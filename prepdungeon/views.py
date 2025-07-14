@@ -6,6 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.mail import send_mail
+from django.conf import settings
 from django.utils import timezone
 import json
 from django.contrib.auth.hashers import make_password
@@ -17,8 +19,8 @@ import io
 from PyPDF2 import PdfReader
 import docx
 
-from .forms import IndexForm
-from .models import Question, Waitlist
+from .forms import IndexForm, ContactUsForm
+from .models import Question, Waitlist, ContactUsEmail
 
 API_URL = "https://furygold.pythonanywhere.com/generate"
 
@@ -404,4 +406,44 @@ def about(request):
     return render(request, 'about.html')
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            contact_us_instance = ContactUsEmail.objects.create(
+                first_name=first_name, last_name=last_name, email=email, subject=subject,message=message
+            )
+            contact_us_instance.save()
+            send_contact_email(contact_us_instance)
+    form = ContactUsForm()
+    return render(request, 'contact.html', {'form': form})
+
+def send_contact_email(contact_obj):
+    subject = f"[Contact Us] {contact_obj.subject} from {contact_obj.email}"
+    message = f"""
+                Name: {contact_obj.first_name} {contact_obj.last_name}
+                Email: {contact_obj.email}
+                Subject: {contact_obj.subject}
+
+                Message:
+                {contact_obj.message}
+                    """
+    send_mail(
+        subject=subject,
+        message=message,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[settings.SUPPORT_INBOX, 'yashjhaq@gmail.com'],
+        fail_silently=False,
+    )
+
+    send_mail(
+        subject="Amitabh from PrepDungeon",
+        message="Hi, we've received your message and will get back to you shortly.",
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[contact_obj.email],
+        fail_silently=False,
+    )

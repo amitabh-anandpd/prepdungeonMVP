@@ -67,19 +67,20 @@
                     </div>
                     
                     <form class="contact-form" id="contact-form">
+                        {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">First Name</label>
                                 <div class="input-wrapper">
                                     <i data-lucide="user" class="input-icon"></i>
-                                    <input type="text" class="form-input" placeholder="Your first name" required>
+                                    <input type="text" class="form-input" name="first_name" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Last Name</label>
                                 <div class="input-wrapper">
                                     <i data-lucide="user" class="input-icon"></i>
-                                    <input type="text" class="form-input" placeholder="Your last name" required>
+                                    <input type="text" class="form-input" name="last_name" required>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +89,7 @@
                             <label class="form-label">Email Address</label>
                             <div class="input-wrapper">
                                 <i data-lucide="mail" class="input-icon"></i>
-                                <input type="email" class="form-input" placeholder="your.email@example.com" required>
+                                <input type="email" name="email" class="form-input" required>
                             </div>
                         </div>
                         
@@ -96,7 +97,7 @@
                             <label class="form-label">Subject</label>
                             <div class="input-wrapper">
                                 <i data-lucide="tag" class="input-icon"></i>
-                                <select class="form-input" required>
+                                <select class="form-input" name="subject" required>
                                     <option value="">Select a topic</option>
                                     <option value="general">General Inquiry</option>
                                     <option value="support">Technical Support</option>
@@ -112,11 +113,11 @@
                             <label class="form-label">Message</label>
                             <div class="input-wrapper">
                                 <i data-lucide="message-square" class="input-icon textarea-icon"></i>
-                                <textarea class="form-input form-textarea" placeholder="Tell us how we can help you..." rows="6" required></textarea>
+                                <textarea class="form-input form-textarea" name="message" rows="6" required></textarea>
                             </div>
                         </div>
                         
-                        <button type="submit" class="submit-btn">
+                        <button type="submit" class="contact-submit-btn">
                             <span>Send Message</span>
                             <i data-lucide="send" class="btn-icon"></i>
                         </button>
@@ -131,16 +132,7 @@
                         </div>
                         <h3>Email Us</h3>
                         <p>Get in touch via email</p>
-                        <a href="mailto:hello@prepdungeon.com" class="info-link">hello@prepdungeon.com</a>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i data-lucide="message-circle"></i>
-                        </div>
-                        <h3>Live Chat</h3>
-                        <p>Chat with our support team</p>
-                        <button class="info-link chat-btn">Start Chat</button>
+                        <a href="mailto:amitabh.anandpd@gmail.com" class="info-link">amitabh.anandpd@gmail.com</a>
                     </div>
                     
                     <div class="info-card">
@@ -149,7 +141,7 @@
                         </div>
                         <h3>Help Center</h3>
                         <p>Find answers to common questions</p>
-                        <a href="faq.html" class="info-link">Visit FAQ</a>
+                        <a href="{% url 'faq' %}" class="info-link">Visit FAQ</a>
                     </div>
                     
                     <div class="info-card">
@@ -171,7 +163,7 @@
             <h2 class="section-title">Our Response Times</h2>
             <div class="response-grid">
                 <div class="response-card">
-                    <div class="response-icon">
+                    <div class="response-icon general">
                         <i data-lucide="zap"></i>
                     </div>
                     <h3>General Inquiries</h3>
@@ -180,7 +172,7 @@
                 </div>
                 
                 <div class="response-card">
-                    <div class="response-icon">
+                    <div class="response-icon support">
                         <i data-lucide="headphones"></i>
                     </div>
                     <h3>Technical Support</h3>
@@ -189,59 +181,12 @@
                 </div>
                 
                 <div class="response-card">
-                    <div class="response-icon">
+                    <div class="response-icon critical">
                         <i data-lucide="alert-circle"></i>
                     </div>
                     <h3>Critical Issues</h3>
                     <p class="response-time">Within 1 hour</p>
                     <p class="response-desc">Critical bugs affecting learning are addressed immediately by our engineering team.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Office Locations -->
-    <section class="locations-section">
-        <div class="container">
-            <h2 class="section-title">Our Offices</h2>
-            <div class="locations-grid">
-                <div class="location-card">
-                    <div class="location-icon">
-                        <i data-lucide="map-pin"></i>
-                    </div>
-                    <h3>San Francisco, CA</h3>
-                    <p class="location-address">
-                        123 Innovation Drive<br>
-                        San Francisco, CA 94105<br>
-                        United States
-                    </p>
-                    <p class="location-type">Headquarters</p>
-                </div>
-                
-                <div class="location-card">
-                    <div class="location-icon">
-                        <i data-lucide="map-pin"></i>
-                    </div>
-                    <h3>London, UK</h3>
-                    <p class="location-address">
-                        456 Tech Street<br>
-                        London EC2A 4DP<br>
-                        United Kingdom
-                    </p>
-                    <p class="location-type">European Office</p>
-                </div>
-                
-                <div class="location-card">
-                    <div class="location-icon">
-                        <i data-lucide="map-pin"></i>
-                    </div>
-                    <h3>Bangalore, India</h3>
-                    <p class="location-address">
-                        789 Innovation Hub<br>
-                        Bangalore 560001<br>
-                        India
-                    </p>
-                    <p class="location-type">Development Center</p>
                 </div>
             </div>
         </div>
@@ -301,7 +246,7 @@
                 <div class="footer-bottom">
                     <div class="footer-bottom-content">
                         <p class="footer-copyright">
-                            © 2024 PrepDungeon. All rights reserved.
+                            © 2025 PrepDungeon. All rights reserved.
                         </p>
                         <div class="footer-bottom-links">
                             <a href="#" class="footer-bottom-link">Status</a>
@@ -321,42 +266,52 @@
     <script type="module" src="{% static 'js/script.js' %}"></script>
     <script>
         // Contact form handling
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const submitBtn = this.querySelector('.submit-btn');
+        
+            const submitBtn = this.querySelector('.contact-submit-btn');
             const originalText = submitBtn.innerHTML;
-            
+        
             // Show loading state
             submitBtn.innerHTML = '<i data-lucide="loader-2" class="animate-spin"></i> Sending...';
             submitBtn.disabled = true;
-            
-            // Reinitialize icons
             lucide.createIcons();
-            
-            // Simulate form submission
-            setTimeout(() => {
+        
+            const formData = new FormData(this);
+        
+            try {
+                const res = await fetch(this.action || '/contact/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: formData
+                });
+        
+                if (!res.ok) {
+                    throw new Error('Network response was not OK');
+                }
+        
+                // Show success state
                 submitBtn.innerHTML = '<i data-lucide="check" class="btn-icon"></i> Message Sent!';
-                
-                // Show success notification
                 showNotification('Thank you! Your message has been sent successfully. We\'ll get back to you soon.', 'success');
-                
+        
                 // Reset form
                 setTimeout(() => {
-                    this.reset();
+                    document.getElementById('contact-form').reset();
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                     lucide.createIcons();
                 }, 2000);
-            }, 2000);
+            } catch (err) {
+                console.error(err);
+                showNotification('Something went wrong. Please try again later.', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                lucide.createIcons();
+            }
         });
         
-        // Chat button
-        document.querySelector('.chat-btn').addEventListener('click', function() {
-            showNotification('Live chat feature coming soon! Please use email for now.', 'info');
-        });
-        
-        // Add CSS for spinning animation
         const style = document.createElement('style');
         style.textContent = `
             .animate-spin {
