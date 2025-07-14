@@ -20,13 +20,17 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import index
+from .views import index, features, about, contact, faq
 from .views import clear_notifications, clear_question_ids, join_waitlist
 from .views import testMCQ, checkMCQ, testSpeed, checkSpeed, testConceptual, checkConceptual
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('features/', features, name="features"),
+    path('about/', about, name="about"),
+    path('contact/', contact, name="contact"),
+    path('faq/', faq, name="faq"),
     path('test-mcq/', testMCQ, name='test-mcq'),
     path('test-speed/', testSpeed, name='test-speed'),
     path('test-conceptual/', testConceptual, name='test-conceptual'),

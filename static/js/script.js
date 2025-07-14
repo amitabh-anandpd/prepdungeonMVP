@@ -95,7 +95,6 @@ function handleFiles(files) {
     const dataTransfer = new DataTransfer();
     files.forEach(file => dataTransfer.items.add(file));
     fileInput.files = dataTransfer.files;
-    console.log("fileInput.files before submit:", fileInput.files);
 
     updateUploadDisplay();
     checkContinueButton();
@@ -556,7 +555,6 @@ const observer = new IntersectionObserver((entries) => {
 
 // Initialize animations on page load
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("JS file loaded ✅");
     const animateElements = document.querySelectorAll('.feature-card, .trust-badge, .section-header');
     
     animateElements.forEach(el => {

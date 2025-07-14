@@ -393,3 +393,15 @@ def join_waitlist(request):
 
     except json.JSONDecodeError:
         return JsonResponse({"success": False, "message": "Invalid JSON"}, status=400)
+
+def features(request):
+    return render(request, 'features.html')
+
+def faq(request):
+    return render(request, 'faq.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PrepDungeon</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.344.0/lucide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="gradient-orb orb-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <i data-lucide="brain" class="nav-logo"></i>
+                    <span class="nav-title">PrepDungeon</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link">Home</a>
+                    <a href="{% url 'features' %}" class="nav-link">Features</a>
+                    <a href="{% url 'about' %}" class="nav-link active">About</a>
+                    <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                    <a href="{% url 'faq' %}" class="nav-link">FAQ</a>
+                    <a class="nav-cta-btn" onclick="showNotification('Coming soon!')">Login</a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i data-lucide="menu" class="menu-icon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    About <span class="gradient-text">PrepDungeon</span>
+                </h1>
+                <p class="hero-description">
+                    Revolutionizing education through AI-powered personalized learning experiences that adapt to every student's unique journey.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-content">
+                <div class="section-header">
+                    <h2 class="section-title">Our Mission</h2>
+                    <p class="mission-description">
+                        At PrepDungeon, we believe that every student deserves a personalized learning experience that adapts to their unique strengths, weaknesses, and learning style. Our mission is to democratize quality education by making AI-powered learning accessible to students worldwide.
+                        We're not just another learning platform – we're your personal AI mentor, guiding you through the dungeons of knowledge with gamified experiences that make learning addictive and effective.
+                    </p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="target"></i>
+                        </div>
+                        <h3 class="feature-title">Personalized Learning</h3>
+                        <p class="feature-description">AI adapts to your pace and style</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="gamepad-2"></i>
+                        </div>
+                        <h3 class="feature-title">Gamified Experience</h3>
+                        <p>Learn through engaging challenges</p>
+                    </div>
+                    <div class="feature-card">
+                        <i data-lucide="users" class="feature-icon"></i>
+                        <h3 class="feature-title">Community Driven</h3>
+                        <p>Learn together, grow together</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <h2 class="section-title">Our Story</h2>
+                <div class="story-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="lightbulb"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>The Idea</h3>
+                            <p>Born from the frustration of one-size-fits-all education, PrepDungeon was conceived to create truly personalized learning experiences.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="code"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Development</h3>
+                            <p>Our team of educators and technologists worked tirelessly to build an AI that understands how each student learns best.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="rocket"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Launch</h3>
+                            <p>PrepDungeon launched with a mission to transform education through personalized, gamified learning experiences.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="globe"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Global Impact</h3>
+                            <p>Today, we're helping thousands of students worldwide achieve their academic goals through intelligent, adaptive learning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <h2 class="section-title">Our Values</h2>
+                <div class="story-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="heart"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Student-Centric</h3>
+                            <p>Every decision we make is guided by what's best for our students' learning journey.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Innovation</h3>
+                            <p>We constantly push the boundaries of what's possible in educational technology.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="shield"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Integrity</h3>
+                            <p>We maintain the highest standards of privacy, security, and ethical AI practices.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="globe"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Accessibility</h3>
+                            <p>Quality education should be accessible to everyone, regardless of background or location.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Alex Chen">
+                    </div>
+                    <h3>Yash Jha</h3>
+                    <p class="member-role">Co-Founder</p>
+                    <p class="member-bio">Former educator turned tech entrepreneur, passionate about democratizing quality education.</p>
+                    <p class="member-bio">IIM, Sirmaur</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Mike Johnson">
+                    </div>
+                    <h3>Amitabh Anand</h3>
+                    <p class="member-role">Co-Founder</p>
+                    <p class="member-bio">AI researcher specializing in real-time vision systems, ed-tech innovation, and custom deep learning architectures.</p>
+                    <p class="member-bio">IIIT, Hyderabad</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" alt="Sarah Rodriguez">
+                    </div>
+                    <h3>Akshat Raj</h3>
+                    <p class="member-role">Chattis</p>
+                    <p class="member-bio">Something something</p>
+                    <p class="member-bio">Dayanand Sagar, Bengaluru</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <i data-lucide="brain" class="footer-logo-icon"></i>
+                            <span class="footer-brand-name">PrepDungeon</span>
+                        </div>
+                        <p class="footer-description">
+                            Empowering students with AI-powered personalized learning experiences. 
+                            Know where you stand before you start your journey.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link">
+                                <i data-lucide="twitter" class="social-icon"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i data-lucide="linkedin" class="social-icon"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i data-lucide="github" class="social-icon"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i data-lucide="instagram" class="social-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4 class="footer-column-title">Product</h4>
+                            <ul class="footer-link-list">
+                                <li><a href="{% url 'features' %}" class="footer-link">Features</a></li>
+                                <li><a href="{% url 'faq' %}" class="footer-link">FAQs</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4 class="footer-column-title">Company</h4>
+                            <ul class="footer-link-list">
+                                <li><a href="{% url 'about' %}" class="footer-link">About Us</a></li>
+                                <li><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
+                            </ul>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="footer-bottom-content">
+                        <p class="footer-copyright">
+                            © 2024 PrepDungeon. All rights reserved.
+                        </p>
+                        <div class="footer-bottom-links">
+                            <a href="#" class="footer-bottom-link">Status</a>
+                            <a href="#" class="footer-bottom-link">Security</a>
+                            <a href="#" class="footer-bottom-link">Accessibility</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>window.notification = "{{ request.session.notification|default:''|escapejs }}"</script>
+    <script>window.notification_type = "{{ request.session.notification_type|default:''|escapejs }}"</script>
+    <script src="{% static 'js/common.js' %}"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script type="module" src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="animated-background">
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
@@ -18,7 +17,6 @@
         <div class="gradient-orb orb-4"></div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-content">
@@ -28,8 +26,9 @@
                 </div>
                 <div class="nav-menu">
                     <a href="#features" class="nav-link">Superpowers</a>
-                    <a href="#how-it-works" class="nav-link">Features</a>
-                    <a href="#trust" class="nav-link">Trust</a>
+                    <a href="{% url 'features' %}" class="nav-link">Features</a>
+                    <a href="{% url 'about' %}" class="nav-link">About</a>
+                    <a href="{% url 'contact' %}" class="nav-link">Contact</a>
                     <a class="nav-cta-btn" onclick="showNotification('Coming soon!')">Login</a>
                 </div>
                 <div class="mobile-menu-btn">
@@ -157,12 +156,12 @@
                         <div class="card-icon">
                             <i data-lucide="zap"></i>
                         </div>
-                        <h3 class="card-title">Speed Test</h3>
+                        <h3 class="card-title">Short Answer</h3>
                         <p class="card-description">Fast-paced questions to test your quick recall</p>
                         <div class="card-features">
-                            <span class="feature">• Rapid fire</span>
+                            <span class="feature">• One word or sentence</span>
                             <span class="feature">• Time pressure</span>
-                            <span class="feature">• 3-5 minutes</span>
+                            <span class="feature">• 5-10 minutes</span>
                         </div>
                     </div>
                 </div>
@@ -266,15 +265,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Signup Button -->
-                <!--div class="signup-cta-container">
-                    <button class="signup-cta-btn" id="show-signup-modal">
-                        <span>Get My Full Analysis</span>
-                        <i data-lucide="arrow-right" class="btn-icon"></i>
-                    </button>
-                    <p class="signup-cta-text">Unlock detailed insights, personalized study plans, and progress tracking</p>
-                </div-->
                 <div class="signup-cta-container">
                     <button class="signup-cta-btn" id="show-Waitlist-modal">
                         <span>Get My Full Analysis</span>
@@ -286,66 +276,6 @@
         </div>
     </section>
 
-    <!-- Signup Modal -->
-    <!--div id="signup-modal" class="modal-overlay hidden">
-        <div class="modal-container">
-            <div class="signup-card">
-                <button class="modal-close" id="close-signup-modal">
-                    <i data-lucide="x" class="close-icon"></i>
-                </button>
-                
-                <div class="signup-header">
-                    <h2 class="signup-title">Get Your Full Analysis</h2>
-                    <p class="signup-subtitle">Only takes 10 seconds. Stay curious.</p>
-                    <div class="curiosity-badge">
-                        <i data-lucide="star" class="curiosity-icon"></i>
-                        <span>+1 Curiosity Point</span>
-                    </div>
-                </div>
-                
-                <form class="signup-form" id="modal-signup-form">
-                    <div class="form-group">
-                        <div class="input-wrapper">
-                            <i data-lucide="user" class="input-icon"></i>
-                            <input type="text" class="form-input" placeholder="Your name" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="input-wrapper">
-                            <i data-lucide="mail" class="input-icon"></i>
-                            <input type="email" class="form-input" placeholder="Your email" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="input-wrapper">
-                            <i data-lucide="graduation-cap" class="input-icon"></i>
-                            <select class="form-input" required>
-                                <option value="">Select your level</option>
-                                <option value="high-school">High School</option>
-                                <option value="undergraduate">Undergraduate</option>
-                                <option value="graduate">Graduate</option>
-                                <option value="professional">Professional</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="signup-btn">
-                        <span>Get My Full Analysis</span>
-                        <i data-lucide="arrow-right" class="btn-icon"></i>
-                    </button>
-                </form>
-                
-                <div class="signup-footer">
-                    <p class="privacy-note">
-                        <i data-lucide="shield" class="privacy-icon"></i>
-                        Your data is secure and will never be shared
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div-->
     <!-- Join Waitlist Modal -->
     <div id="Waitlist-modal" class="modal-overlay hidden">
         <div class="modal-container">
@@ -489,32 +419,19 @@
                         <div class="footer-column">
                             <h4 class="footer-column-title">Product</h4>
                             <ul class="footer-link-list">
-                                <li><a href="#features" class="footer-link">Features</a></li>
-                                <li><a href="#" class="footer-link">Pricing</a></li>
-                                <li><a href="#" class="footer-link">API</a></li>
-                                <li><a href="#" class="footer-link">Integrations</a></li>
+                                <li><a href="{% url 'features' %}" class="footer-link">Features</a></li>
+                                <li><a href="{% url 'faq' %}" class="footer-link">FAQs</a></li>
                             </ul>
                         </div>
                         
                         <div class="footer-column">
                             <h4 class="footer-column-title">Company</h4>
                             <ul class="footer-link-list">
-                                <li><a href="#" class="footer-link">About Us</a></li>
-                                <li><a href="#" class="footer-link">Careers</a></li>
-                                <li><a href="#" class="footer-link">Blog</a></li>
-                                <li><a href="#" class="footer-link">Press</a></li>
+                                <li><a href="{% url 'about' %}" class="footer-link">About Us</a></li>
+                                <li><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
                             </ul>
                         </div>
                         
-                        <div class="footer-column">
-                            <h4 class="footer-column-title">Resources</h4>
-                            <ul class="footer-link-list">
-                                <li><a href="#" class="footer-link">Help Center</a></li>
-                                <li><a href="#" class="footer-link">Documentation</a></li>
-                                <li><a href="#" class="footer-link">Community</a></li>
-                                <li><a href="#" class="footer-link">Contact</a></li>
-                            </ul>
-                        </div>
                         
                     </div>
                 </div>
@@ -534,7 +451,17 @@
             </div>
         </div>
     </footer>
-
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    </script>
     <script>window.notification = "{{ request.session.notification|default:''|escapejs }}"</script>
     <script>window.notification_type = "{{ request.session.notification_type|default:''|escapejs }}"</script>
     <script src="{% static 'js/common.js' %}"></script>
