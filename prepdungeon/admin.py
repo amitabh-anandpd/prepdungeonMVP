@@ -1,7 +1,7 @@
 # prepdungeon/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import Question, Waitlist
+from .models import Question, Waitlist, ContactUsEmail
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
