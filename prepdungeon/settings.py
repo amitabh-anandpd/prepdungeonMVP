@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-moew72yk6-#+p88_+2@f94v!-uxh_g&cag&qmr6#jhg(oyzrik'
+SECRET_KEY = os.environ.get('DJANGO_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['prepdungeonbackend.onrender.com', '127.0.0.1']
 
@@ -112,6 +112,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -124,15 +129,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = r"C:\Users\amita\Desktop\PrepDungeon\prepdungeonDjango\prepdungeon\media"
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # your app-specific static files
-STATIC_ROOT = BASE_DIR / "staticfiles"    # where collected files will go
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "amitabh.anandpd@gmail.com"
-SUPPORT_INBOX = "amitabh.anandpd@gmail.com"
-EMAIL_HOST_PASSWORD = "tcdknfkgwxfklilv"
+EMAIL_HOST_USER = os.environ.get('MY_EMAIL')
+SUPPORT_INBOX = os.environ.get('MY_EMAIL')
+EMAIL_HOST_PASSWORD = os.environ.get('MY_EMAIL_PASS_KEY')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
