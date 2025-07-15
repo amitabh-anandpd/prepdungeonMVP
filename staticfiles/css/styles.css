@@ -2696,3 +2696,6 @@ body {
     text-decoration: none;
     color: inherit;
 }
+section.main-features{
+    margin-top: 5rem;
+}
