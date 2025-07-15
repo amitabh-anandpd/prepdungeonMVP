@@ -1590,6 +1590,7 @@ body {
     font-weight: 500;
     word-break: break-all;
     transition: color 0.2s;
+    margin-left: auto;
 }
   
 .contact-info .info-card a:hover {
