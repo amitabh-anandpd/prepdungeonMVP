@@ -2691,3 +2691,8 @@ body {
       transform: translateX(-50%);
     }
 }
+.card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
