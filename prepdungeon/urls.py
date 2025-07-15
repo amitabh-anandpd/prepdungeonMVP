@@ -41,7 +41,4 @@ urlpatterns = [
     path('submit-conceptual/', checkConceptual, name="checkConceptual"),
     path('join-waitlist/', join_waitlist, name="join_waitlist"),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
