@@ -443,7 +443,7 @@ def send_contact_email(contact_obj):
         subject=subject,
         message=message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[settings.SUPPORT_INBOX, 'yashjhaq@gmail.com'],
+        recipient_list=[settings.SUPPORT_INBOX, 'kiyotakasenpai69@gmail.com'],
         fail_silently=False,
     )
 
