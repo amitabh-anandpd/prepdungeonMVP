@@ -23,24 +23,24 @@ class Waitlist(models.Model):
         return f"{self.name} <{self.email}>"
 
 class Question(models.Model):
-    question = models.CharField(max_length=256, null=False)
+    question = models.CharField(max_length=512, null=False)
     topic = models.CharField(max_length=128, null=False, default="Misc")
     subject = models.CharField(max_length=128, null=False, default="Misc")
     TYPE_CHOICES = [
-        ('MCQ', 'mcq'),
-        ('Conceptual', 'conceptual'),
-        ('Speed', 'speed'),
+        ('mcq', 'MCQ'),
+        ('conceptual', 'Conceptual'),
+        ('speed', 'Speed'),
     ]
     q_type = models.CharField(choices=TYPE_CHOICES, max_length=16, null=False)
-    option1 = models.CharField(max_length=256, null=True)
-    option2 = models.CharField(max_length=256, null=True)
-    option3 = models.CharField(max_length=256, null=True)
-    option4 = models.CharField(max_length=256, null=True)
-    answer = models.CharField(max_length=512, null=True)
+    option1 = models.CharField(max_length=256, null=True, blank=True)
+    option2 = models.CharField(max_length=256, null=True, blank=True)
+    option3 = models.CharField(max_length=256, null=True, blank=True)
+    option4 = models.CharField(max_length=256, null=True, blank=True)
+    answer = models.CharField(max_length=1024, null=True, blank=True)
     LEVEL_CHOICES = [
-        ('Easy', 'easy'),
-        ('Medium', 'medium'),
-        ('Hard', 'hard'),
+        ('easy', 'Easy'),
+        ('medium', 'Medium'),
+        ('hard', 'Hard'),
     ]
     level = models.CharField(choices=LEVEL_CHOICES, max_length=16, null=False)
     
