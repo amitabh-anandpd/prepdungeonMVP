@@ -78,7 +78,7 @@ def index(request):
             if test_type == 'mcq':
                 prompt = "Generate 10 mcq question based on the given text. Give output in csv format, don't forget to give the column name but keep it like this - 'topic', 'subject', 'question', 'opt1', 'opt2', 'opt3', 'opt4', 'answer', 'level'. subject should be the subject from which the question is (college subjects). topic name should be of the subject. topic from which the question is, not the subject. level should be the question's level based on easy, medium and hard. Make sure answer is one of the options exactly as it is. Don't forget to double quote the data so that it's csv can be read ignoring extra commas. Also, only give csv part and don't write anything else"
             elif test_type == 'conceptual':
-                prompt = "Generate 5 conceptual question based on the given text. Give output in csv format, don't forget to give the column name but keep it like this - 'topic', 'subject', 'question', 'answer', 'level'. subject should be the subject from which the question is (college subjects). topic name should be of the of the subject. topic from which the question is, not the subject. level should be the question's level based on easy, medium and hard. Answers shouldn't exceed 512 characters, but around 350-450 is fine. Don't forget to double quote the data so that it's csv can be read ignoring extra commas. Also, only give csv part and don't write anything else"
+                prompt = "Generate 10 conceptual question based on the given text. Give output in csv format, don't forget to give the column name but keep it like this - 'topic', 'subject', 'question', 'answer', 'level'. subject should be the subject from which the question is (college subjects). topic name should be of the of the subject. topic from which the question is, not the subject. level should be the question's level based on easy, medium and hard. Answers shouldn't exceed 512 characters, but around 350-450 is fine. Don't forget to double quote the data so that it's csv can be read ignoring extra commas. Also, only give csv part and don't write anything else"
             elif test_type == 'speed':
                 prompt = "Generate 10 question with short answer (one word answers preferable) based on the given text. Give output in csv format, don't forget to give the column name but keep it like this - 'topic', 'subject', 'question', 'answer', 'level'. subject should be the subject from which the question is (college subjects). topic name should be of the subject. topic from which the question is, not the subject. level should be the question's level based on easy, medium and hard. Don't forget to double quote the data so that it's csv can be read ignoring extra commas. Also, only give csv part and don't write anything else"
             full_text = full_text + " " + prompt
@@ -172,7 +172,7 @@ def checkMCQ(request):
         request.session.pop('question_ids')
         prompt = " Give me an analysis on the basis of the given test question and results"
         prompt = prompt + "I need score of 'quickRecall', 'detailAttention', 'patternRecognition', 'conceptApplication'"
-        prompt = prompt + " in percentage in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included "
+        prompt = prompt + " in percentage (only numbers) in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included "
         try:
             response = requests.post(
                 os.environ.get('API_URL'),
@@ -250,7 +250,7 @@ def checkSpeed(request):
         request.session.pop('question_ids')
         prompt = f"{answers}\n Give me an analysis on the basis of the given test question, user-answer and what correct answer is"
         prompt = prompt + "I need score of 'quickProcessing', 'timeManagement', 'accuracyFocus', 'speed', 'score'"
-        prompt = prompt + " in percentage in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included."
+        prompt = prompt + " in percentage (only numbers) in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included."
         prompt = prompt + " Calculate score from a max of 5 marks per question and give marks based on user-answer."
         try:
             response = requests.post(
@@ -328,7 +328,7 @@ def checkConceptual(request):
         request.session.pop('question_ids')
         prompt = f"{answers}\n Give me an analysis on the basis of the given test question, user-answer and what correct answer is"
         prompt = prompt + "I need score of 'deepUnderstanding', 'criticalThinking', 'problemSolving', 'memoryRetention', 'score'"
-        prompt = prompt + " in percentage in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included."
+        prompt = prompt + " in percentage (only numbers) in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included."
         prompt = prompt + " Calculate score from a max of 5 marks per question and give marks based on user-answer."
         try:
             response = requests.post(
