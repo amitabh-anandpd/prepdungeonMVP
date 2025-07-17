@@ -387,7 +387,7 @@ def clear_notifications(request):
 
 def send_full_analysis(result, email):
     prompt = "Score is as follows - \n" + json.dumps(result) + "\n\n Generate a detailed analysis, based on the score, as follows -\n\n"
-    with open(r"C:\Users\amita\Desktop\PrepDungeon\prepdungeon\prepdungeon\analysis_prompt.txt", "r") as file:
+    with open(os.path.join(settings.STATIC_ROOT, "analysis_prompt.txt"), "r") as file:
         prompt = prompt + file.read()
     try:
         response = requests.post(
@@ -465,7 +465,7 @@ def send_contact_email(contact_obj):
         subject=subject,
         message=message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[settings.SUPPORT_INBOX, 'kiyotakasenpai69@gmail.com'],
+        recipient_list=[settings.SUPPORT_INBOX, os.environ.get('JHA_EMAIL')],
         fail_silently=False,
     )
 
