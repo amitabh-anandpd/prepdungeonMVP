@@ -375,33 +375,45 @@ def clear_notifications(request):
     request.session.pop('notification_type', None)
     return JsonResponse({'status': 'cleared'})
 
+def send_full_analysis(result, email):
+    prompt = "Score is as follows - \n" + json.dumps(result) + "\n\n Generate a detailed analysis, based on the score, as follows -\n\n"
+    with open(r"C:\Users\amita\Desktop\PrepDungeon\prepdungeon\prepdungeon\analysis_prompt.txt", "r") as file:
+        prompt = prompt + file.read()
+    try:
+        response = requests.post(
+            API_URL + "/analysis",
+            json={'prompt': prompt},
+            timeout=60,
+        )
+        full_analysis = str(response.json()['response']).encode('utf-8').decode('unicode_escape')
+        html_content = markdown.markdown(full_analysis)
+        send_mail(
+            subject="Full Analysis from PrepDungeon",
+            message=full_analysis,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            html_message=html_content,
+            fail_silently=False,
+        )
+    except Exception as e:
+        print(f"Failed to send full analysis! ({e})")
 def join_waitlist(request):
     if request.method != "POST":
         return JsonResponse({"success": False, "message": "POST required"}, status=405)
-
     try:
         data  = json.loads(request.body.decode())
         name  = data.get("name", "").strip()
         email = data.get("email", "").strip()
         score = data.get("score") 
-
         if not name or not email:
             return JsonResponse({"success": False, "message": "Missing fields"}, status=400)
+        threading.Thread(target=send_full_analysis, args=(score, email)).start()
         entry = Waitlist.objects.create(name=name, email=email)
         entry.set_score(score)
-        message = "Hi! You've been added to our waitlist. We'll get back to you soon.\nHere is you full analysis - "
-        message = message + json.dumps(score)
-        send_mail(
-            subject="Amitabh from PrepDungeon",
-            message=message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[email],
-            fail_silently=False,
-        )
         return JsonResponse({"success": True})
-
     except json.JSONDecodeError:
         return JsonResponse({"success": False, "message": "Invalid JSON"}, status=400)
+
 
 def features(request):
     return render(request, 'features.html')
