@@ -24,7 +24,7 @@ import markdown
 from .forms import IndexForm, ContactUsForm
 from .models import Question, Waitlist, ContactUsEmail
 
-API_URL = os.enviorn.get('API_URL')
+API_URL = os.environ.get('API_URL')
 
 def extract_text_from_file(uploaded_file):
     if uploaded_file.name.endswith('.pdf'):
