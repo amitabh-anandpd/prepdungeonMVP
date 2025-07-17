@@ -21,7 +21,7 @@ import docx
 
 from .forms import IndexForm, ContactUsForm
 from .models import Question, Waitlist, ContactUsEmail
-
+API_URL = os.environ.get('API_URL')
 def extract_text_from_file(uploaded_file):
     if uploaded_file.name.endswith('.pdf'):
         reader = PdfReader(uploaded_file)
@@ -84,7 +84,7 @@ def index(request):
             full_text = full_text + " " + prompt
             try:
                 response = requests.post(
-                    os.environ.get('API_URL'),
+                    API_URL,
                     json={'prompt': full_text},
                     timeout=60,
                 )
@@ -175,7 +175,7 @@ def checkMCQ(request):
         prompt = prompt + " in percentage (only numbers) in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included "
         try:
             response = requests.post(
-                os.environ.get('API_URL'),
+                API_URL,
                 json={'prompt': result_dict+questions_dict+prompt},
                 timeout=60,
             )
@@ -254,7 +254,7 @@ def checkSpeed(request):
         prompt = prompt + " Calculate score from a max of 5 marks per question and give marks based on user-answer."
         try:
             response = requests.post(
-                os.environ.get('API_URL'),
+                API_URL,
                 json={'prompt': prompt},
                 timeout=60,
             )
@@ -332,7 +332,7 @@ def checkConceptual(request):
         prompt = prompt + " Calculate score from a max of 5 marks per question and give marks based on user-answer."
         try:
             response = requests.post(
-                os.environ.get('API_URL'),
+                API_URL,
                 json={'prompt': prompt},
                 timeout=60,
             )
