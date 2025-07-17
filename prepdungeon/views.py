@@ -386,7 +386,7 @@ def clear_notifications(request):
 
 def send_full_analysis(result, email):
     prompt = "Score is as follows - \n" + json.dumps(result) + "\n\n Generate a detailed analysis, based on the score, as follows -\n\n"
-    with open(settings.BASE_DIR / "static/analysis_prompt.txt", "r") as file:
+    with open(os.path.join(settings.STATIC_ROOT, "analysis_prompt.txt"), "r") as file:
         prompt = prompt + file.read()
     try:
         response = requests.post(
@@ -400,7 +400,7 @@ def send_full_analysis(result, email):
             subject="Full Analysis from PrepDungeon",
             message=full_analysis,
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[email],
+            recipient_list=[email, settings.DEFAULT_FROM_EMAIL],
             html_message=html_content,
             fail_silently=False,
         )
