@@ -142,6 +142,7 @@ def checkMCQ(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         user_answers   = data.get('userAnswers', [])
+        timePerQuestion = data.get('timePerQuestion')
         question_ids   = request.session.get('question_ids', [])
         qs = Question.objects.filter(id__in=question_ids)
         question_map = {q.id: q for q in qs}
@@ -165,20 +166,22 @@ def checkMCQ(request):
             'score': score,
             'correct': correct,
             'total': data.get('totalQuestions'),
-            'time': data.get('timeSpent')
+            'time': data.get('timeSpent'),
+            'timePerQuestion': timePerQuestion,
         }
         result_dict = str(request.session['score'])
         questions_dict = str(Question.objects.filter(id__in=request.session['question_ids']))
         request.session.pop('question_ids')
-        prompt = " Give me an analysis on the basis of the given test question and results"
-        prompt = prompt + "I need score of 'quickRecall', 'detailAttention', 'patternRecognition', 'conceptApplication'"
-        prompt = prompt + " in percentage (only numbers) in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included "
         try:
+            prompt = " Give me an analysis on the basis of the given test question and results"
+            prompt = prompt + "I need score of 'quickRecall', 'detailAttention', 'patternRecognition', 'conceptApplication'"
+            prompt = prompt + " in percentage (only numbers) in csv format. Use column names as I have given. Don't give anything else other than csv data and write each data cell inside double quotation marks so that unnecessary commas are not included "
+                
             response = requests.post(
-                API_URL,
-                json={'prompt': result_dict+questions_dict+prompt},
-                timeout=60,
-            )
+                        API_URL,
+                        json={'prompt': result_dict+questions_dict+prompt},
+                        timeout=60,
+                    )
             if response.status_code == 200:
                 try:
                     reader = csv.DictReader(io.StringIO(response.json()['response']))
@@ -188,13 +191,13 @@ def checkMCQ(request):
                     request.session['score'] = {
                         'test_type': data.get('test_type'),
                         'score': score,
-                        'correct': correct,
-                        'total': data.get('totalQuestions'),
-                        'time': data.get('timeSpent'),
                         'quickRecall': row['quickRecall'],
                         'detailAttention': row['detailAttention'],
                         'patternRecognition': row['patternRecognition'],
                         'conceptApplication': row['conceptApplication'],
+                        'time': data.get('timeSpent'),
+                        'timePerQuestion': timePerQuestion,
+                        'questions': questions_dict,
                     }
                 except Exception as e:
                     print(e)
@@ -229,6 +232,7 @@ def checkSpeed(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         user_answers = data.get('userAnswers', [])
+        timePerQuestion = data.get('timePerQuestion')
         question_ids = request.session.get('question_ids', [])
         qs = Question.objects.filter(id__in=question_ids)
         qs_dict = {str(q.id): q for q in qs}
@@ -242,10 +246,10 @@ def checkSpeed(request):
                 answers.append({
                     'question': question_obj.question,
                     'user_answer': user_answers[i],
+                    'time_taken': timePerQuestion[i],
                     'intended_answer': question_obj.answer,
                 })
         answers = json.dumps(answers)
-        total = len(question_ids)
         
         request.session.pop('question_ids')
         prompt = f"{answers}\n Give me an analysis on the basis of the given test question, user-answer and what correct answer is"
@@ -266,9 +270,11 @@ def checkSpeed(request):
                         saved.append(row)
                     request.session['score'] = {
                         'test_type': data.get('test_type'),
+                        'answers': answers,
                         'score': row['score'],
                         'total': data.get('totalQuestions'),
                         'time': data.get('timeSpent'),
+                        'timePerQuestion': timePerQuestion,
                         'quickProcessing': row['quickProcessing'],
                         'timeManagement': row['timeManagement'],
                         'accuracyFocus': row['accuracyFocus'],
@@ -307,6 +313,7 @@ def checkConceptual(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         user_answers = data.get('userAnswers', [])
+        timePerQuestion = data.get('timePerQuestion')
         question_ids = request.session.get('question_ids', [])
         qs = Question.objects.filter(id__in=question_ids)
         qs_dict = {str(q.id): q for q in qs}
@@ -320,10 +327,10 @@ def checkConceptual(request):
                 answers.append({
                     'question': question_obj.question,
                     'user_answer': user_answers[i],
+                    'time_taken': timePerQuestion[i],
                     'intended_answer': question_obj.answer,
                 })
         answers = json.dumps(answers)
-        total = len(question_ids)
         
         request.session.pop('question_ids')
         prompt = f"{answers}\n Give me an analysis on the basis of the given test question, user-answer and what correct answer is"
@@ -344,9 +351,11 @@ def checkConceptual(request):
                         saved.append(row)
                     request.session['score'] = {
                         'test_type': data.get('test_type'),
+                        'answers': answers,
                         'score': row['score'],
                         'total': data.get('totalQuestions'),
-                        'time': data.get('timeSpent'),
+                        'time': abs(int(data.get('timeSpent'))),
+                        'timePerQuestion': timePerQuestion,
                         'deepUnderstanding': row['deepUnderstanding'],
                         'criticalThinking': row['criticalThinking'],
                         'problemSolving': row['problemSolving'],
@@ -361,7 +370,7 @@ def checkConceptual(request):
                 request.session['notification'] = "Unexpected error occured!"
                 request.session['notification_type'] = "error"
         except Exception as e:
-            request.session['notification'] = f"Failed to get analysis! ({e})"
+            request.session['notification'] = f"Failed to get full analysis! ({e})"
             request.session['notification_type'] = "error"
         return JsonResponse({'status': 'ok'})
     return JsonResponse({"error": "Only POST allowed"}, status=405)
@@ -377,7 +386,7 @@ def clear_notifications(request):
 
 def send_full_analysis(result, email):
     prompt = "Score is as follows - \n" + json.dumps(result) + "\n\n Generate a detailed analysis, based on the score, as follows -\n\n"
-    with open(r"C:\Users\amita\Desktop\PrepDungeon\prepdungeon\prepdungeon\analysis_prompt.txt", "r") as file:
+    with open(settings.BASE_DIR / "static/analysis_prompt.txt", "r") as file:
         prompt = prompt + file.read()
     try:
         response = requests.post(
