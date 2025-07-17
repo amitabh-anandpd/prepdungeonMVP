@@ -14,14 +14,18 @@ from django.contrib.auth.hashers import make_password
 from datetime import date
 import os
 import requests
+import threading
 import csv
 import io
 from PyPDF2 import PdfReader
 import docx
+import markdown
 
 from .forms import IndexForm, ContactUsForm
 from .models import Question, Waitlist, ContactUsEmail
-API_URL = os.environ.get('API_URL')
+
+API_URL = os.enviorn.get('API_URL')
+
 def extract_text_from_file(uploaded_file):
     if uploaded_file.name.endswith('.pdf'):
         reader = PdfReader(uploaded_file)
@@ -35,7 +39,6 @@ def extract_text_from_file(uploaded_file):
         uploaded_file.seek(0)
         return uploaded_file.read().decode('utf-8', errors='ignore')
     return ""
-
 
 def save_questions_from_csv(csv_text, test_type):
     reader = csv.DictReader(io.StringIO(csv_text))
@@ -91,7 +94,7 @@ def index(request):
                 if response.status_code == 200:
                     raw_response = response.json()["response"]
                     if raw_response.startswith("```csv"):
-                        raw_response = raw_response[6:]  # Remove first 6 chars: ```csv\n
+                        raw_response = raw_response[6:]
                     if raw_response.endswith("```"):
                         raw_response = raw_response[:-3]
                     try:
@@ -270,7 +273,6 @@ def checkSpeed(request):
                         saved.append(row)
                     request.session['score'] = {
                         'test_type': data.get('test_type'),
-                        'answers': answers,
                         'score': row['score'],
                         'total': data.get('totalQuestions'),
                         'time': data.get('timeSpent'),
@@ -351,7 +353,6 @@ def checkConceptual(request):
                         saved.append(row)
                     request.session['score'] = {
                         'test_type': data.get('test_type'),
-                        'answers': answers,
                         'score': row['score'],
                         'total': data.get('totalQuestions'),
                         'time': abs(int(data.get('timeSpent'))),
@@ -386,7 +387,7 @@ def clear_notifications(request):
 
 def send_full_analysis(result, email):
     prompt = "Score is as follows - \n" + json.dumps(result) + "\n\n Generate a detailed analysis, based on the score, as follows -\n\n"
-    with open(os.path.join(settings.STATIC_ROOT, "analysis_prompt.txt"), "r") as file:
+    with open(r"C:\Users\amita\Desktop\PrepDungeon\prepdungeon\prepdungeon\analysis_prompt.txt", "r") as file:
         prompt = prompt + file.read()
     try:
         response = requests.post(
@@ -400,7 +401,7 @@ def send_full_analysis(result, email):
             subject="Full Analysis from PrepDungeon",
             message=full_analysis,
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[email, settings.DEFAULT_FROM_EMAIL],
+            recipient_list=[email],
             html_message=html_content,
             fail_silently=False,
         )
@@ -420,9 +421,9 @@ def join_waitlist(request):
         entry = Waitlist.objects.create(name=name, email=email)
         entry.set_score(score)
         return JsonResponse({"success": True})
+
     except json.JSONDecodeError:
         return JsonResponse({"success": False, "message": "Invalid JSON"}, status=400)
-
 
 def features(request):
     return render(request, 'features.html')
