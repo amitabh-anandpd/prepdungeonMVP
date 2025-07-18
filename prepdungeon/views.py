@@ -469,9 +469,22 @@ def send_contact_email(contact_obj):
         fail_silently=False,
     )
 
+    greeting = f"Hi {contact_obj.first_name}," if contact_obj.first_name else "Hi,"
+    message = f"""{greeting}
+
+Thank you for taking the time to share your feedback with us. We've received your message and truly appreciate your input — it helps us improve and serve you better.
+
+Our team is reviewing your feedback and will get back to you shortly if a response is needed.
+
+In the meantime, feel free to reach out to us at {settings.DEFAULT_FROM_EMAIL} if you have any further thoughts or questions.
+
+Warm regards,
+Team PrepDungeon
+"""
+
     send_mail(
-        subject="Amitabh from PrepDungeon",
-        message="Hi, we've received your message and will get back to you shortly.",
+        subject="Thank You for Your Feedback!",
+        message=message,
         from_email=settings.DEFAULT_FROM_EMAIL,
         recipient_list=[contact_obj.email],
         fail_silently=False,
