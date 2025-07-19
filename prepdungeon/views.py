@@ -21,6 +21,7 @@ from PyPDF2 import PdfReader
 import docx
 import docx
 import pytesseract
+from PIL import Image
 import markdown
 
 from .forms import IndexForm, ContactUsForm
