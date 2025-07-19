@@ -19,6 +19,8 @@ import csv
 import io
 from PyPDF2 import PdfReader
 import docx
+import docx
+import pytesseract
 import markdown
 
 from .forms import IndexForm, ContactUsForm
@@ -38,6 +40,10 @@ def extract_text_from_file(uploaded_file):
     elif uploaded_file.name.endswith('.txt'):
         uploaded_file.seek(0)
         return uploaded_file.read().decode('utf-8', errors='ignore')
+    elif uploaded_file.name.lower().endswith(('.png', '.jpg', '.jpeg', '.webp', '.svg')):
+        image = Image.open(uploaded_file)
+        return pytesseract.image_to_string(image)
+        
     return ""
 
 def save_questions_from_csv(csv_text, test_type):
