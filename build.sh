@@ -9,4 +9,5 @@ echo "---> Installing Python requirements..."
 pip install -r requirements.txt
 
 echo "---> Running Django database migrations..."
+python manage.py makemigrations
 python manage.py migrate
