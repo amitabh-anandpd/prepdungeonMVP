@@ -41,8 +41,12 @@ def extract_text_from_file(uploaded_file):
         uploaded_file.seek(0)
         return uploaded_file.read().decode('utf-8', errors='ignore')
     elif uploaded_file.name.lower().endswith(('.png', '.jpg', '.jpeg', '.webp', '.svg')):
-        image = Image.open(uploaded_file)
-        return pytesseract.image_to_string(image)
+        try:
+            image = Image.open(uploaded_file)
+            return pytesseract.image_to_string(image)
+        except Exception as e:
+            print(e)
+            return redirect("/")
         
     return ""
 
