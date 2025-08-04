@@ -41,4 +41,4 @@ urlpatterns = [
     path('submit-conceptual/', checkConceptual, name="checkConceptual"),
     path('join-waitlist/', join_waitlist, name="join_waitlist"),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+handler404 = 'prepdungeon.views.custom_404_view'

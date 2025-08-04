@@ -503,3 +503,6 @@ Team PrepDungeon
         recipient_list=[contact_obj.email],
         fail_silently=False,
     )
+
+def custom_404_view(request, exception=None):
+    return render(request, '404.html')

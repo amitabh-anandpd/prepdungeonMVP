@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | PrepDungeon</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.344.0/lucide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="gradient-orb orb-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <i data-lucide="brain" class="nav-logo"></i>
+                    <span class="nav-title">PrepDungeon</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="{% url 'index' %}" class="nav-link active">Home</a>
+                    <a href="{% url 'features' %}" class="nav-link">Features</a>
+                    <a href="{% url 'about' %}" class="nav-link">About</a>
+                    <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                    <a href="{% url 'faq' %}" class="nav-link">FAQ</a>
+                    <a onclick="showNotification('Coming soon!', 'info')" class="nav-cta-btn">Login</a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i data-lucide="menu" class="menu-icon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 404 Error Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="error-visual">
+                    <div class="error-icon">
+                        <i data-lucide="map" class="lost-icon"></i>
+                    </div>
+                    <div class="error-code">
+                        <span class="gradient-text">404</span>
+                    </div>
+                </div>
+                
+                <h1 class="hero-title">
+                    Oops! You've Wandered Into <br>
+                    <span class="gradient-text">Uncharted Territory</span>
+                </h1>
+                
+                <p class="hero-description">
+                    It seems like you've ventured into a part of the PrepDungeon that doesn't exist yet. 
+                    Don't worry, even the greatest explorers sometimes take wrong turns!
+                </p>
+                
+                <div class="error-suggestions">
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">
+                            <i data-lucide="home"></i>
+                        </div>
+                        <h3>Return to Base Camp</h3>
+                        <p>Head back to the main page and continue your learning journey</p>
+                        <a href="{% url 'index' %}" class="nav-cta-btn primary">
+                            <span>Go Home</span>
+                            <i data-lucide="arrow-right" class="btn-icon"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="suggestion-card">
+                        <div class="suggestion-icon">
+                            <i data-lucide="sword"></i>
+                        </div>
+                        <h3>Enter the Arena</h3>
+                        <p>Jump straight into testing your knowledge and skills</p>
+                        <a href="{% url 'index' %}" class="nav-cta-btn secondary">
+                            <i data-lucide="play" class="btn-icon"></i>
+                            <span>Start Testing</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="help-section">
+                    <p class="help-text">
+                        Still lost? Our support team is here to guide you back on track.
+                    </p>
+                    <a href="{% url 'contact' %}" class="help-link">
+                        <i data-lucide="help-circle" class="help-icon"></i>
+                        <span>Get Help</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Pages Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Popular Destinations</h2>
+                <p class="section-subtitle">Here are some places you might want to explore instead</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <h3 class="feature-title">AI Analysis</h3>
+                    <p class="feature-description">Get instant insights into your learning patterns and knowledge gaps.</p>
+                    <a href="{% url 'index' %}" class="feature-link">Explore →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="target"></i>
+                    </div>
+                    <h3 class="feature-title">Personalized Tests</h3>
+                    <p class="feature-description">Take adaptive tests that match your skill level and learning goals.</p>
+                    <a href="{% url 'index' %}" class="feature-link">Start Testing →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <h3 class="feature-title">Community</h3>
+                    <p class="feature-description">Connect with fellow learners and share your knowledge journey.</p>
+                    <a href="{% url 'about' %}" class="feature-link">Learn More →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="help-circle"></i>
+                    </div>
+                    <h3 class="feature-title">Help Center</h3>
+                    <p class="feature-description">Find answers to common questions and get support when you need it.</p>
+                    <a href="{% url 'faq' %}" class="feature-link">Get Help →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <i data-lucide="brain" class="footer-logo-icon"></i>
+                            <span class="footer-brand-name">PrepDungeon</span>
+                        </div>
+                        <p class="footer-description">
+                            Empowering students with AI-powered personalized learning experiences. 
+                            Know where you stand before you start your journey.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link">
+                                <i data-lucide="twitter" class="social-icon"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i data-lucide="linkedin" class="social-icon"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i data-lucide="github" class="social-icon"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i data-lucide="instagram" class="social-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4 class="footer-column-title">Product</h4>
+                            <ul class="footer-link-list">
+                                <li><a href="{% url 'features' %}" class="footer-link">Features</a></li>
+                                <li><a href="{% url 'faq' %}" class="footer-link">FAQs</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4 class="footer-column-title">Company</h4>
+                            <ul class="footer-link-list">
+                                <li><a href="{% url 'about' %}" class="footer-link">About Us</a></li>
+                                <li><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
+                            </ul>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="footer-bottom-content">
+                        <p class="footer-copyright">
+                            © 2025 PrepDungeon. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="{% static 'script.js' %}"></script>
+    
+    <style>
+        .error-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .error-icon {
+            margin-bottom: 1rem;
+        }
+        
+        .lost-icon {
+            width: 5rem;
+            height: 5rem;
+            color: #8b5cf6;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .error-code {
+            font-family: 'Orbitron', monospace;
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        
+        .error-suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: auto;
+            max-width: 800px;
+        }
+        
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .suggestion-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .suggestion-icon {
+            width: 3rem;
+            height: 3rem;
+            color: #8b5cf6;
+            margin: 0 auto 1rem;
+        }
+        
+        .suggestion-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+        
+        .suggestion-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .help-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .help-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .help-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .help-link:hover {
+            color: #a78bfa;
+        }
+        
+        .help-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .feature-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .feature-link:hover {
+            color: #a78bfa;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6rem;
+            }
+            
+            .error-suggestions {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .suggestion-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .lost-icon {
+                width: 4rem;
+                height: 4rem;
+            }
+        }
+    </style>
+</body>
+</html>
