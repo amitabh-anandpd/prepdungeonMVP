@@ -505,4 +505,5 @@ Team PrepDungeon
     )
 
 def custom_404_view(request, exception=None):
-    return render(request, '404.html')
+    print("404 triggered for:", request.path)
+    return render(request, '404.html', status=404)
